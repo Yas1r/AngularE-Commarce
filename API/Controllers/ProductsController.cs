@@ -1,11 +1,8 @@
-﻿using System;
+﻿using API.Core.DataContext;
+using API.Core.DbModels;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using API.Data.DataContext;
-using API.Data.DbModels;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
@@ -13,7 +10,6 @@ namespace API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        //değiştirildi ....
         private readonly StoreContext _context;
         public ProductsController(StoreContext context)
         {

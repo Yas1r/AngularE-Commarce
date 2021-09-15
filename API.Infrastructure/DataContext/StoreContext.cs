@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using API.Data.DbModels;
+using API.Core.DbModels;
 
 
-namespace API.Data.DataContext
+namespace API.Core.DataContext
 {
     public class StoreContext : DbContext
     {

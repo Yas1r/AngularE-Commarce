@@ -13,6 +13,7 @@ namespace API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        //değiştirildi
         private readonly StoreContext _context;
         public ProductsController(StoreContext context)
         {

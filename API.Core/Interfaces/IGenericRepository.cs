@@ -1,4 +1,5 @@
 ﻿using API.Core.DbModels;
+using API.Core.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,5 +12,9 @@ namespace API.Core.Interfaces
         Task<T> GetByIdAsycn(int id);
 
         Task<IReadOnlyList<T>> ListAllAsync();
+
+        Task<T> GetEntityWithSpec(ISpecifications<T> spec);
+
+        Task<IReadOnlyList<T>> ListAsycn(ISpecifications<T> spec);
     }
 }

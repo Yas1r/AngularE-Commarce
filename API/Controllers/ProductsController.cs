@@ -3,6 +3,7 @@ using API.Core.DbModels;
 using API.Core.Interfaces;
 using API.Core.Specifications;
 using API.Dto;
+using API.Helpers;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -36,11 +37,14 @@ namespace API.Controllers
             return _mapper.Map<Product, ProductToReturnDto>(product);
         }
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProduct()
+        public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProduct([FromQuery]ProductSpecParams productSpecParams)
         {
-            var spec = new ProductsWithProductTypeAndBrandsSpecification();
-            var data = await _productRepository.ListAsycn(spec);
-            return Ok(_mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(data));
+            var spec = new ProductsWithProductTypeAndBrandsSpecification(productSpecParams);
+            var countSpec = new ProductWithFilterForCountSpecification(productSpecParams);
+            var totalItems = await _productRepository.CountAsycn(spec);
+            var products = await _productRepository.ListAsycn(spec);
+            var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
+            return Ok(new Pagination<ProductToReturnDto>(productSpecParams.PageIndex,productSpecParams.PageSize,totalItems,data));
         }
         [HttpGet("brands")]
         public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductBrands()

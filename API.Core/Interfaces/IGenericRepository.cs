@@ -16,5 +16,7 @@ namespace API.Core.Interfaces
         Task<T> GetEntityWithSpec(ISpecifications<T> spec);
 
         Task<IReadOnlyList<T>> ListAsycn(ISpecifications<T> spec);
+
+        Task<int> CountAsycn(ISpecifications<T>spec);
     }
 }
